@@ -1,0 +1,40 @@
+{
+  "name": "express-hard-coded-response",
+  "version": "0.0.0",
+  "description": "Express middleware to return hard-coded response for requests with url matching specified pattern",
+  "main": "index.js",
+  "scripts": {
+    "jsdoc": "./node_modules/.bin/jsdoc index.js --destination jsdoc",
+    "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
+    "test": "./node_modules/.bin/eslint --ignore-path .gitignore . && ./node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webextensions/express-hard-coded-response.git"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "hard-code",
+    "response",
+    "request",
+    "url",
+    "match",
+    "pattern"
+  ],
+  "author": "Priyank Parashar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webextensions/express-hard-coded-response/issues"
+  },
+  "homepage": "https://github.com/webextensions/express-hard-coded-response#readme",
+  "devDependencies": {
+    "eslint": "3.16.1",
+    "jsdoc": "3.4.3",
+    "mocha": "3.2.0"
+  },
+  "dependencies": {
+    "cjson": "0.5.0",
+    "express-match-request": "0.1.1"
+  }
+}
