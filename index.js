@@ -83,7 +83,7 @@ var hardCodedResponse = function (options) {
 
                 if (matchedCondition.contentType) {
                     res.setHeader('Content-Type', matchedCondition.contentType);
-                } else if (matchedCondition.type.toLowerCase() === 'json') {
+                } else if (matchedCondition.type && matchedCondition.type.toLowerCase() === 'json') {
                     res.setHeader('Content-Type', 'application/json; charset=utf-8');
                 }
 
@@ -94,7 +94,7 @@ var hardCodedResponse = function (options) {
                     response = matchedCondition.responseText || (matchedCondition.responseFile && require('fs').readFileSync(path.join(baseDir, matchedCondition.responseFile), 'utf8'));
 
                     if (!response) {
-                        if (matchedCondition.type.toLowerCase() === 'json') {
+                        if (matchedCondition.type && matchedCondition.type.toLowerCase() === 'json') {
                             response = '{}';
                         } else {
                             response = debugNote || '';
@@ -102,7 +102,7 @@ var hardCodedResponse = function (options) {
                     }
                 }
 
-                if (matchedCondition.type.toLowerCase() === 'json') {
+                if (matchedCondition.type && matchedCondition.type.toLowerCase() === 'json') {
                     var jsonObject = cjson.parse(response);
                     if (debugNote !== false) {
                         jsonObject.debugNote = 'This is a hard-coded response intended for debugging purposes only';

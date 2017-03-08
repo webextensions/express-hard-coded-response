@@ -7,6 +7,7 @@
     "jsdoc": "./node_modules/.bin/jsdoc index.js --destination jsdoc",
     "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
     "mocha": "./node_modules/.bin/mocha",
+    "mocha-debug": "./node_modules/.bin/mocha --inspect --debug-brk",
     "test": "npm run lint && npm run mocha"
   },
   "repository": {
@@ -32,7 +33,8 @@
   "devDependencies": {
     "eslint": "3.16.1",
     "jsdoc": "3.4.3",
-    "mocha": "3.2.0"
+    "mocha": "3.2.0",
+    "node-mocks-http": "1.6.1"
   },
   "dependencies": {
     "cjson": "0.5.0",
