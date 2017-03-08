@@ -26,7 +26,8 @@ var matchRequest = require('express-match-request'),
  *                                               <br /> - 'Content-Type' header is set as 'application/json; charset=utf-8' by default, unless overridden using <b>contentType</b> option.
  *                                               <br /> - <b>debugNote</b> would be added as a property to the JSON response (this can be overwritten through the options when setting up the middleware).
  * @property {String} [contentType]            - 'Content-Type' header
- * @property {String} responseFile             - The file to be used as the hard-coded response
+ * @property {String} [responseText]           - The text to be used as the hard-coded response (responseText has more priority than responseFile)
+ * @property {String} [responseFile]           - The file to be used as the hard-coded response (responseText has more priority than responseFile)
  * @property {*} [Any-other-object-properties] - Any other object properties (these might be accessed after match from res.locals['matchedCondition'])
  */
 
@@ -50,7 +51,8 @@ var matchRequest = require('express-match-request'),
  * @param {Boolean} [options.verbose=false]             - <b>truthy-value</b> to log each matched URL and corresponding pattern
  * @param {Object}  [options.baseDir="<empty-string>"]  - Base directory for the relative paths
  * @param {Object}  [options.debugNote="This is a hard-coded response intended for debugging purposes only"] - Debug note to be added as HTTP header (and JSON property if MatchCondition says .type is 'json')
- *                                                                                                             <br /> Set it to <b>false</b> to disable it
+ *                                                                                                             <br /> - If responseText & responseFile are not provided in MatchCondition, then debugNote is used as the response
+ *                                                                                                             <br /> - Set it to <b>false</b> to disable it
  * @param {Object}  [options.console=console]           - A <b>logging/console object</b>, which supports .log() and .warn()
  *
  * @return {ExpressMiddleware} Express middleware
@@ -81,23 +83,34 @@ var hardCodedResponse = function (options) {
 
                 if (matchedCondition.contentType) {
                     res.setHeader('Content-Type', matchedCondition.contentType);
-                } else if (matchedCondition.type === 'json') {
+                } else if (matchedCondition.type.toLowerCase() === 'json') {
                     res.setHeader('Content-Type', 'application/json; charset=utf-8');
                 }
 
-                var fileContents = require('fs').readFileSync(path.join(baseDir, matchedCondition.responseFile), 'utf8'),
-                    strResponse;
+                var response;
+                if (matchedCondition.responseText === '') {
+                    response = '';
+                } else {
+                    response = matchedCondition.responseText || (matchedCondition.responseFile && require('fs').readFileSync(path.join(baseDir, matchedCondition.responseFile), 'utf8'));
 
-                if (matchedCondition.type === 'json') {
-                    var jsonObject = cjson.parse(fileContents);
+                    if (!response) {
+                        if (matchedCondition.type.toLowerCase() === 'json') {
+                            response = '{}';
+                        } else {
+                            response = debugNote || '';
+                        }
+                    }
+                }
+
+                if (matchedCondition.type.toLowerCase() === 'json') {
+                    var jsonObject = cjson.parse(response);
                     if (debugNote !== false) {
                         jsonObject.debugNote = 'This is a hard-coded response intended for debugging purposes only';
                     }
-                    strResponse = JSON.stringify(jsonObject, null, 4);
-                } else {
-                    strResponse = fileContents;
+                    response = JSON.stringify(jsonObject, null, 4);
                 }
-                res.send(strResponse);
+
+                res.send(response);
             }
         );
     } else {
