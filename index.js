@@ -4,34 +4,6 @@ var matchRequest = require('express-match-request'),
     cjson = require('cjson');
 
 /**
- * Express middleware
- * @name ExpressMiddleware
- * @function
- * @param {Object}   req  - Request object
- * @param {Object}   res  - Response object
- * @param {Function} next - Next function
- */
-
-/**
- * The condition to be matched (<b>.pattern</b> is used for match with request and other attributes are used for response)
- * @typedef {Object} MatchCondition
- * @property {String} pattern                  - <b>"none"</b> or <b>falsy-value</b> would match none
- *                                               <br /> <b>"*"</b> or <b>"all"</b> would match all
- *                                               <br /> <b>"&lt;any-other-pattern&gt;"</b> would be searched as plain string anywhere in the req.originalUrl
- * @property {String} [status=200]             - Response status
- * @property {String} [type]                   - Type of response (currently supporting 'json')
- *                                               <br />
- *                                               <br /> <b>If 'json' is used:</b>
- *                                               <br /> - <b>responseFile</b>'s contents would be read as commented-json (CJSON) and the commentes would be stripped-off.
- *                                               <br /> - 'Content-Type' header is set as 'application/json; charset=utf-8' by default, unless overridden using <b>contentType</b> option.
- *                                               <br /> - <b>debugNote</b> would be added as a property to the JSON response (this can be overwritten through the options when setting up the middleware).
- * @property {String} [contentType]            - 'Content-Type' header
- * @property {String} [responseText]           - The text to be used as the hard-coded response (responseText has more priority than responseFile)
- * @property {String} [responseFile]           - The file to be used as the hard-coded response (responseText has more priority than responseFile)
- * @property {*} [Any-other-object-properties] - Any other object properties (these might be accessed after match from res.locals['matchedCondition'])
- */
-
-/**
  * "Hard-coded Response" module for Express JS.
  * @module express-hard-coded-response
  *
@@ -119,5 +91,33 @@ var hardCodedResponse = function (options) {
         };
     }
 };
+
+/**
+ * Express middleware
+ * @name ExpressMiddleware
+ * @typedef {Function} ExpressMiddleware
+ * @param {Object}   req  - Request object
+ * @param {Object}   res  - Response object
+ * @param {Function} next - Next function
+ */
+
+/**
+ * The condition to be matched (<b>.pattern</b> is used for match with request and other attributes are used for response)
+ * @typedef {Object} MatchCondition
+ * @property {String} pattern                  - <b>"none"</b> or <b>falsy-value</b> would match none
+ *                                               <br /> <b>"*"</b> or <b>"all"</b> would match all
+ *                                               <br /> <b>"&lt;any-other-pattern&gt;"</b> would be searched as plain string anywhere in the req.originalUrl
+ * @property {String} [status=200]             - Response status
+ * @property {String} [type]                   - Type of response (currently supporting 'json')
+ *                                               <br />
+ *                                               <br /> <b>If 'json' is used:</b>
+ *                                               <br /> - <b>responseFile</b>'s contents would be read as commented-json (CJSON) and the commentes would be stripped-off.
+ *                                               <br /> - 'Content-Type' header is set as 'application/json; charset=utf-8' by default, unless overridden using <b>contentType</b> option.
+ *                                               <br /> - <b>debugNote</b> would be added as a property to the JSON response (this can be overwritten through the options when setting up the middleware).
+ * @property {String} [contentType]            - 'Content-Type' header
+ * @property {String} [responseText]           - The text to be used as the hard-coded response (responseText has more priority than responseFile)
+ * @property {String} [responseFile]           - The file to be used as the hard-coded response (responseText has more priority than responseFile)
+ * @property {*} [Any-other-object-properties] - Any other object properties (these might be accessed after match from res.locals['matchedCondition'])
+ */
 
 module.exports = hardCodedResponse;

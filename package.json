@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "jsdoc": "./node_modules/.bin/jsdoc index.js --destination jsdoc",
+    "jsdoc2md": "jsdoc2md index.js > README.md",
     "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
     "mocha": "./node_modules/.bin/mocha",
     "mocha-debug": "./node_modules/.bin/mocha --inspect --debug-brk",
+    "pre-push": "npm run test && npm run jsdoc2md && git status",
     "test": "npm run lint && npm run mocha"
   },
   "repository": {
