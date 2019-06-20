@@ -33,13 +33,13 @@
   },
   "homepage": "https://github.com/webextensions/express-hard-coded-response#readme",
   "devDependencies": {
-    "eslint": "3.16.1",
-    "jsdoc": "3.4.3",
-    "mocha": "3.2.0",
-    "node-mocks-http": "1.6.1"
+    "eslint": "^5.16.0",
+    "jsdoc": "^3.6.2",
+    "mocha": "^6.1.4",
+    "node-mocks-http": "^1.7.6"
   },
   "dependencies": {
-    "cjson": "0.5.0",
-    "express-match-request": "0.1.1"
+    "cjson": "^0.5.0",
+    "express-match-request": "0.1.2"
   }
 }
