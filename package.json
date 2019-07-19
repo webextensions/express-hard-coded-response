@@ -33,9 +33,9 @@
   },
   "homepage": "https://github.com/webextensions/express-hard-coded-response#readme",
   "devDependencies": {
-    "eslint": "^5.16.0",
-    "jsdoc": "^3.6.2",
-    "mocha": "^6.1.4",
+    "eslint": "^6.0.1",
+    "jsdoc": "^3.6.3",
+    "mocha": "^6.2.0",
     "node-mocks-http": "^1.7.6"
   },
   "dependencies": {
