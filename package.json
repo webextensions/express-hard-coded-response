@@ -40,6 +40,6 @@
   },
   "dependencies": {
     "cjson": "^0.5.0",
-    "express-match-request": "0.1.2"
+    "express-match-request": "0.1.3"
   }
 }
