@@ -1,6 +1,6 @@
 {
   "name": "express-hard-coded-response",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Express middleware to return hard-coded response for requests with url matching specified pattern",
   "main": "index.js",
   "scripts": {
